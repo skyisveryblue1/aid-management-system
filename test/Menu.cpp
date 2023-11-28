@@ -46,7 +46,7 @@ namespace sdds
     }
 
 
-    unsigned Menu::run(bool isRunContext) const
+    unsigned Menu::run(int isRunContext) const
     {
        if (!menuContent || countOptions() > 15)
        {
@@ -73,7 +73,15 @@ namespace sdds
             std::cout << std::endl;
         }
 
-        std::cout << (isRunContext ? "---------------------------------" : "-----------------") << std::endl;
+
+        if (isRunContext == 1) {
+            std::cout << "---------------------------------" << std::endl;
+        }
+        else if (isRunContext == 2) {
+            std::cout << "-----------------" << std::endl;
+        }
+        else {
+        }
         std::cout << "0- Exit" << std::endl << "> ";
 
         while (true)

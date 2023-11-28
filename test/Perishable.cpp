@@ -138,7 +138,7 @@ namespace sdds
                 ostr << "Perishable ";
                 Item::display(ostr);
                 ostr << "Expiry date: ";
-                ostr << m_expiryDate << std::endl << std::endl;
+                ostr << m_expiryDate << std::endl;
                 if (m_handlingInstructions && m_handlingInstructions[0] != '\0')
                 {
 

@@ -47,7 +47,7 @@ namespace sdds
             cout << "---------------------------------" << endl;
             Menu menu("List Items\tAdd Item\tRemove Item\tUpdate Quantity\tSort\tShip Items\tNew/Open Aid Database");
             
-            choice = menu.run(true);
+            choice = menu.run(1);
             if (choice != 0) {
                 cout << endl;
             }
@@ -58,6 +58,7 @@ namespace sdds
 
             switch (choice) {
             case 1: {
+                cout << "****List Items****" << endl;
                 int count = list(nullptr);
 
                 cout << "Enter row number to display details or <ENTER> to continue:" << endl;
@@ -99,6 +100,7 @@ namespace sdds
                 break;
             case 0:
                 cout << "Exiting Program!" << endl;
+                save();
                 return;
             default:
                 cout << endl;
@@ -107,7 +109,7 @@ namespace sdds
 
             isFirstExecution = false;
         } while (choice != 0);
-        save();
+       
     }
 
     void AidMan::shipItems() {
@@ -140,10 +142,8 @@ namespace sdds
         cout << "****Sort****" << endl;
 
         for (int i = 0; i < m_productCount - 1; ++i) {
-            iProduct* a = m_products[i];
             for (int j = i + 1; j < m_productCount; ++j) {
-                iProduct* b = m_products[j];
-                if ((a->qtyNeeded() - a->qty()) < (b->qtyNeeded() - b->qty())) {
+                if ((m_products[i]->qtyNeeded() - m_products[i]->qty()) < (m_products[j]->qtyNeeded() - m_products[j]->qty())) {
                     iProduct* t = m_products[i];
                     m_products[i] = m_products[j];
                     m_products[j] = t;
@@ -178,7 +178,7 @@ namespace sdds
         }
 
         Menu menu("Add\tReduce");
-        int choice = menu.run(false);
+        int choice = menu.run(0);
         if (choice == 0) {
             cout << "Aborted!" << endl;
             return;
@@ -245,13 +245,13 @@ namespace sdds
             cout << "SKU not found!" << endl;
             return;
         }
-        cout << "Following item will be removed:" << endl;
+        cout << "Following item will be removed: " << endl;
         m_products[idx]->linear(false);
         cout << *m_products[idx] << endl;
 
         cout << "Are you sure?" << endl;
         Menu menu("Yes!");
-        int choice = menu.run(false);
+        int choice = menu.run(0);
         if (choice == 1) {
             remove(idx);
             cout << "Item removed!" << endl;
@@ -271,7 +271,7 @@ namespace sdds
 
         cout << "****Add Item****" << endl;
         Menu menu("Perishable\tNon-Perishable");
-        int choice = menu.run(false);
+        int choice = menu.run(2);
 
         Item* newProduct = nullptr;
         int sku = -1;
@@ -294,7 +294,7 @@ namespace sdds
 
         sku = newProduct->readSku(cin);
         if (search(sku) != -1) {
-            cout << "Sku:" << sku << " is already in the system, try updating quantity instead." << endl;
+            cout << "Sku: " << sku << " is already in the system, try updating quantity instead." << endl;
             delete newProduct;
             return;
         }
@@ -326,7 +326,7 @@ namespace sdds
     }
 
     int AidMan::list(const char* sub_desc/* = nullptr*/) {
-        cout << "****List Items****" << endl;
+        
         cout << " ROW |  SKU  | Description                         | Have | Need |  Price  | Expiry\n";
         cout << "-----+-------+-------------------------------------+------+------+---------+-----------" << endl;
             
