@@ -1,4 +1,4 @@
-
+#define _CRT_SECURE_NO_WARNINGS
 
 #include "Menu.h"
 #include <iostream>
@@ -46,7 +46,7 @@ namespace sdds
     }
 
 
-    unsigned Menu::run() const
+    unsigned Menu::run(bool isRunContext) const
     {
        if (!menuContent || countOptions() > 15)
        {
@@ -73,7 +73,7 @@ namespace sdds
             std::cout << std::endl;
         }
 
-        std::cout << "---------------------------------" << std::endl;
+        std::cout << (isRunContext ? "---------------------------------" : "-----------------") << std::endl;
         std::cout << "0- Exit" << std::endl << "> ";
 
         while (true)

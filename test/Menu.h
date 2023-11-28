@@ -15,7 +15,7 @@ namespace sdds
         ~Menu();
         Menu(const Menu&) = delete;
         Menu& operator=(const Menu&) = delete; 
-        unsigned run() const;
+        unsigned run(bool isRunContext) const;
     };
 
 }
